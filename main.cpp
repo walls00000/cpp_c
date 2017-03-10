@@ -4,21 +4,30 @@ using namespace std;
 
 int main() {
 	cout << "HELLO C++" << endl;
-//	logtype logbridge = &foo::dologging;
+	// Assign logtype defined as 'logbridge' to an address
+	logtype logbridge = &foo::log;
 
-	dologging(&foo::log);
+	//Call C code with logbridge logtype function pointer
+	dologging(logbridge);
 	simple();
 }
 
 namespace foo
 {
 
-	void log(char *message)
+	/**
+	 * log(char * message)
+	 * A static log function defined in a C++ code to be
+	 * passed as a function pointer to a C program.
+	 *
+	 * message: the message to log
+	 */
+	static void log(char *message)
 	{
-		FILE *fp;
-		fp = fopen("/tmp/cpp_foo.out", "a");
-		fprintf(fp, "foo.logbridge: %s\n", message);
-		fclose(fp);
+		ofstream logfile;
+		logfile.open("/tmp/cpp_foo.out", ios::app);
+		logfile << "foo.log: " << message << endl;
+		logfile.close();
 	}
 
 

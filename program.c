@@ -8,26 +8,33 @@ void mylog(char *message)
 	fclose(fp);
 }
 
+/**
+ * Renamed the main() function as this is now just library
+ * called from a C++ main class
+ */
 int test_main()
 {
+	// notice that the compiler will still allow dologging to be
+	// called this way
 	dologging(&mylog);
 	return 0;
 }
+
 
 void simple() {
 	printf("simple\n");
 }
 
-void dologging(void (*mylogger)(char *))
+/**
+ * dologging takes a function pointer which has been defined by typdef
+ */
+void dologging(logtype logbridge)
 {
-
-	//mylogger = &mylog;
-	const char str[] = "Hello World Everyone!";
+	const char str[] = "Hello World from dologging method with logtype!";
 	int strsize = strlen(str);
-
 	char *message = (char *)malloc(strsize);
 	strcpy(message, str);
-	(*mylogger)(message);
+	logbridge(message);
 }
 
 

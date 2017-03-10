@@ -7,7 +7,12 @@ extern "C" {
 #include <string.h>
 
 void simple();
-void dologging(void (*mylogger)(char *));
+
+// Define *logtype as a pointer to a 'void function(char *)'
+typedef void (*logtype)(char *);
+
+// Use the logtype
+void dologging(logtype logbridge);
 void mylog(char *);
 
 #ifdef __cplusplus
