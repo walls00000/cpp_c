@@ -26,6 +26,17 @@ void simple() {
 }
 
 /**
+ * logit
+ * log a message using logbridge
+ */
+void logit(logtype logbridge, const char *message) {
+	const char * label = "logit: ";
+	int size = strlen(message) + strlen(label + 1);
+	char s[size];
+	sprintf(s, "%s%s", label, message);
+	logbridge(s);
+}
+/**
  * dologging takes a function pointer which has been defined by typdef
  */
 void dologging(logtype logbridge)
@@ -35,6 +46,7 @@ void dologging(logtype logbridge)
 	char *message = (char *)malloc(strsize);
 	strcpy(message, str);
 	logbridge(message);
+	logit(logbridge, "Test1");
 }
 
 
